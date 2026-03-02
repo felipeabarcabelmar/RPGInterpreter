@@ -1,0 +1,439 @@
+:root {
+    --bg-dark: #0a0b10;
+    --panel-bg: rgba(16, 20, 30, 0.8);
+    --neon-blue: #00d4ff;
+    --dark-blue: #005f73;
+    --text-main: #e0e6ed;
+    --text-dim: #94a3b8;
+    --accent-glow: 0 0 15px rgba(0, 212, 255, 0.3);
+    --border-style: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(0, 95, 115, 0.15) 0%, transparent 50%),
+        linear-gradient(to right, rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+}
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: var(--border-style);
+    backdrop-filter: blur(10px);
+    height: 70px;
+    flex-shrink: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    margin-left: 3rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-dim);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--neon-blue);
+    text-shadow: var(--accent-glow);
+}
+
+.app-container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 280px;
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border-right: var(--border-style);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: var(--neon-blue);
+    text-shadow: var(--accent-glow);
+}
+
+.caleb-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+    filter: drop-shadow(var(--accent-glow));
+}
+
+.logo p {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+}
+
+.upload-btn {
+    display: block;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.upload-btn:hover {
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: var(--accent-glow);
+}
+
+.history-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.history-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    transition: 0.2s;
+}
+
+.history-item:hover {
+    color: var(--neon-blue);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.file-history {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 1rem;
+    padding-right: 5px;
+}
+
+/* Custom Scrollbar for Sidebar */
+.file-history::-webkit-scrollbar {
+    width: 4px;
+}
+
+.file-history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.file-history::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.2);
+    border-radius: 10px;
+}
+
+.file-history::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-blue);
+}
+
+.history-group-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: var(--neon-blue);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    padding: 5px 10px;
+    background: rgba(0, 212, 255, 0.05);
+    border-left: 3px solid var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.history-group-list {
+    list-style: none;
+    margin-bottom: 1rem;
+    padding-left: 5px;
+}
+
+.file-info-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: var(--border-style);
+    padding-bottom: 1rem;
+}
+
+.top-bar h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+}
+
+.status-indicator {
+    font-size: 0.75rem;
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: var(--border-style);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.code-editor {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #88c0d0;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.analysis-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.content-area {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.diagram-panel {
+    min-height: 300px;
+}
+
+.html-diagram-container {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.html-diagram-container svg {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    box-shadow: var(--accent-glow);
+}
+
+.options-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.options-trigger {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-dim);
+    line-height: 1;
+    padding: 0 10px;
+    transition: 0.2s;
+}
+
+.options-trigger:hover {
+    color: var(--neon-blue);
+}
+
+.options-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--bg-dark);
+    border: var(--border-style);
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    min-width: 120px;
+}
+
+.options-dropdown.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+    color: var(--text-main);
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--neon-blue);
+}
+
+.dropdown-item.delete {
+    color: #ff4d4d;
+}
+
+.dropdown-item.delete:hover {
+    background: rgba(255, 77, 77, 0.1);
+    color: #ff0000;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: var(--panel-bg);
+    margin: 5% auto;
+    padding: 2rem;
+    border: var(--border-style);
+    border-radius: 12px;
+    width: 80%;
+    max-width: 1000px;
+    height: 80vh;
+    overflow: auto;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+}
+
+.close-modal {
+    color: var(--text-dim);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--neon-blue);
+}
+
+#modal-diagram-container {
+    padding: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
