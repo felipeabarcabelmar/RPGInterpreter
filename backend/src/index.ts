@@ -1,0 +1,81 @@
+import Fastify from 'fastify';
+import cors from '@fastify/cors';
+import cookie from '@fastify/cookie';
+import formbody from '@fastify/formbody';
+import fastifyStatic from '@fastify/static';
+import multipart from '@fastify/multipart';
+import path from 'path';
+
+import { fileURLToPath } from 'url';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+
+import fileRoutes from './routes/files.js';
+import categoryRoutes from './routes/categories.js';
+import authRoutes from './routes/auth.js';
+import chatRoutes from './routes/chat.js';
+
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const fastify = Fastify({
+    logger: true
+});
+
+export const prisma = new PrismaClient();
+
+// Register plugins
+fastify.register(cors);
+fastify.register(cookie);
+fastify.register(formbody);
+fastify.register(multipart, {
+    limits: {
+        fileSize: 10 * 1024 * 1024 // 10MB
+    }
+});
+
+// Serve uploads as static
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, '../../uploads'),
+    prefix: '/uploads/',
+    decorateReply: false // Need to disable decoration for the second static registration
+});
+
+// Serve assets as static
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, '../../static'),
+    prefix: '/static/',
+    decorateReply: false
+});
+
+
+// Auth middleware (simplified)
+fastify.addHook('preHandler', async (request, reply) => {
+    const isPublicRoute = ['/api/auth/login', '/api/auth/logout'].includes(request.url);
+    if (!isPublicRoute && !request.cookies.session) {
+        // In a real decoupled app, we might return 401
+        // For now, we'll allow routes but you'd protect sensitive ones
+    }
+});
+
+// Register routes
+fastify.register(authRoutes, { prefix: '/api/auth' });
+fastify.register(fileRoutes, { prefix: '/api/files' });
+fastify.register(categoryRoutes, { prefix: '/api/categories' });
+fastify.register(chatRoutes, { prefix: '/api/chat' });
+
+const start = async () => {
+    try {
+        const port = parseInt(process.env.PORT || '3001');
+        await fastify.listen({ port, host: '0.0.0.0' });
+        console.log(`Server listening on http://localhost:${port}`);
+    } catch (err) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+};
+
+start();

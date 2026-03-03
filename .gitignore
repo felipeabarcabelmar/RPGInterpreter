@@ -59,3 +59,22 @@ tmp_test_api.py
 tmp_verify_service.py
 tmp_list_models.py
  rtpModulo1.txt
+
+# Node.js / React / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm
+.eslintcache
+.stylelintcache
+.vite
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Prisma
+backend/prisma/dev.db
+backend/prisma/dev.db-journal

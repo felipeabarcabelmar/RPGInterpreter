@@ -1,0 +1,28 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  files       RPGFile[]
+}
+
+model RPGFile {
+  id              Int      @id @default(autoincrement())
+  filename        String
+  content         String
+  documentation   String?
+  businessLogic   String?
+  mermaidDiagram  String?
+  htmlDiagram     String?
+  uploadedAt      DateTime @default(now())
+  categoryId      Int?
+  category        Category? @relation(fields: [categoryId], references: [id])
+}
