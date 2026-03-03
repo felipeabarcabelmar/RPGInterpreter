@@ -67,15 +67,23 @@ fastify.register(fileRoutes, { prefix: '/api/files' });
 fastify.register(categoryRoutes, { prefix: '/api/categories' });
 fastify.register(chatRoutes, { prefix: '/api/chat' });
 
-const start = async () => {
-    try {
-        const port = parseInt(process.env.PORT || '3001');
-        await fastify.listen({ port, host: '0.0.0.0' });
-        console.log(`Server listening on http://localhost:${port}`);
-    } catch (err) {
-        fastify.log.error(err);
-        process.exit(1);
-    }
+export default async (req: any, res: any) => {
+    await fastify.ready();
+    fastify.server.emit('request', req, res);
 };
 
-start();
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    const start = async () => {
+        try {
+            const port = parseInt(process.env.PORT || '3001');
+            await fastify.listen({ port, host: '0.0.0.0' });
+            console.log(`Server listening on http://localhost:${port}`);
+        } catch (err) {
+            fastify.log.error(err);
+            process.exit(1);
+        }
+    };
+    start();
+}
+
+export { fastify };
