@@ -389,8 +389,8 @@ const AmsView: React.FC = () => {
                     <div className={`fixed bottom-8 right-8 w-[400px] bg-white border border-[#dfe1e6] rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 z-50 ${isChatOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'}`}>
                         <div className="bg-[#0052cc] p-4 text-white flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                                    <MessageCircle size={18} />
+                                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1">
+                                    <img src="/caleblogo.png" alt="Caleb Logo" className="w-full h-full object-contain" />
                                 </div>
                                 <div>
                                     <div className="font-bold text-sm leading-none">AMS Asistente de IA</div>
@@ -413,8 +413,8 @@ const AmsView: React.FC = () => {
                             ) : (
                                 chatHistory.map((msg, i) => (
                                     <div key={i} className={`flex items-start gap-2 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-[#172b4d]' : 'bg-[#0052cc]'}`}>
-                                            {msg.role === 'user' ? <User size={12} className="text-white" /> : <Bot size={12} className="text-white" />}
+                                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ${msg.role === 'user' ? 'bg-[#172b4d]' : 'bg-white p-0.5 border border-[#dfe1e6]'}`}>
+                                            {msg.role === 'user' ? <User size={12} className="text-white" /> : <img src="/caleblogo.png" alt="Bot" className="w-full h-full object-contain" />}
                                         </div>
                                         <div className={`p-3 rounded-2xl text-[11px] leading-relaxed shadow-sm border ${msg.role === 'user' ? 'bg-[#172b4d] text-white border-[#172b4d] rounded-tr-none' : 'bg-white text-[#172b4d] border-[#dfe1e6] rounded-tl-none'}`}>
                                             {msg.content}
@@ -424,8 +424,8 @@ const AmsView: React.FC = () => {
                             )}
                             {loadingChat && (
                                 <div className="flex items-start gap-2">
-                                    <div className="w-6 h-6 rounded-full bg-[#0052cc] flex items-center justify-center">
-                                        <Loader2 size={12} className="text-white animate-spin" />
+                                    <div className="w-6 h-6 rounded-full bg-white border border-[#dfe1e6] flex items-center justify-center overflow-hidden p-0.5">
+                                        <img src="/caleblogo.png" alt="Bot" className="w-full h-full object-contain opacity-50 animate-pulse" />
                                     </div>
                                     <div className="p-3 rounded-2xl bg-white border border-[#dfe1e6] text-[11px] italic text-[#6b778c]">Consultando la base de conocimiento...</div>
                                 </div>
@@ -457,9 +457,9 @@ const AmsView: React.FC = () => {
                     {!isChatOpen && (
                         <button
                             onClick={() => setIsChatOpen(true)}
-                            className="fixed bottom-8 right-8 w-14 h-14 bg-[#0052cc] text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all z-50 border-4 border-white active:scale-90"
+                            className="fixed bottom-8 right-8 w-14 h-14 bg-white text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-all z-50 border-4 border-[#0052cc] active:scale-90 overflow-hidden p-2"
                         >
-                            <MessageCircle size={24} />
+                            <img src="/caleblogo.png" alt="Caleb AI" className="w-full h-full object-contain" />
                         </button>
                     )}
                 </main>
