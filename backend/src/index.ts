@@ -61,11 +61,15 @@ fastify.addHook('preHandler', async (request, reply) => {
     }
 });
 
-// Register routes
+import ticketRoutes from './routes/tickets.js';
+
+// ... (inside the register routes section)
 fastify.register(authRoutes, { prefix: '/api/auth' });
 fastify.register(fileRoutes, { prefix: '/api/files' });
 fastify.register(categoryRoutes, { prefix: '/api/categories' });
 fastify.register(chatRoutes, { prefix: '/api/chat' });
+fastify.register(ticketRoutes, { prefix: '/api/tickets' });
+
 
 export default async (req: any, res: any) => {
     await fastify.ready();

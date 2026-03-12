@@ -26,3 +26,16 @@ model RPGFile {
   categoryId      Int?
   category        Category? @relation(fields: [categoryId], references: [id])
 }
+
+model Ticket {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String
+  status        String   @default("Abierto") // Abierto, En Proceso, Resuelto, Cerrado
+  criticality   String   @default("Media")   // Baja, Media, Alta, Crítica
+  solution      String?
+  attachmentUrl String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+

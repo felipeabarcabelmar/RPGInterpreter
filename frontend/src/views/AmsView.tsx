@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import {
     Search,
-    MessageCircle,
     FileText,
     ChevronRight,
     Info,
     Send,
     User,
-    Bot,
     Loader2,
     X,
     Code2,
@@ -125,7 +123,7 @@ const AmsView: React.FC = () => {
             <header className="h-14 bg-white border-b border-[#dfe1e6] flex items-center px-6 gap-8 shadow-sm relative z-30">
                 <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveFileId('welcome')}>
                     <img src="/caleblogo.png" alt="Caleb Group" className="w-8 h-8 object-contain" />
-                    <span className="font-bold text-xl tracking-tight">AMS <span className="text-[#0052cc]">Portal</span></span>
+                    <span className="font-bold text-xl tracking-tight">Base de <span className="text-[#0052cc]">Conocimientos</span></span>
                 </div>
 
                 <div className="ml-auto flex items-center gap-4">
@@ -240,7 +238,7 @@ const AmsView: React.FC = () => {
                                     <span className="text-[#172b4d] font-semibold">Resumen del Sistema</span>
                                 </div>
 
-                                <h1 className="text-5xl font-extrabold mb-4 tracking-tighter text-[#172b4d]">Plataforma de Conocimiento AMS</h1>
+                                <h1 className="text-5xl font-extrabold mb-4 tracking-tighter text-[#172b4d]">Plataforma de Conocimiento</h1>
                                 <p className="text-xl text-[#42526e] mb-10 leading-relaxed font-light">Centralizamos el código, la lógica y la documentación para una gestión técnica impecable.</p>
 
                                 <div className="grid grid-cols-4 gap-6 mb-12">
@@ -251,14 +249,6 @@ const AmsView: React.FC = () => {
                                     <div className="bg-[#f4f5f7] p-6 rounded-2xl border border-[#dfe1e6] text-center">
                                         <div className="text-3xl font-black text-[#0052cc] mb-1">{categories.length}</div>
                                         <div className="text-[10px] font-bold text-[#6b778c] uppercase tracking-widest">Módulos</div>
-                                    </div>
-                                    <div className="bg-[#0052cc] p-6 rounded-2xl text-center shadow-lg shadow-blue-500/20">
-                                        <div className="text-3xl font-black text-white mb-1">IA</div>
-                                        <div className="text-[10px] font-bold text-blue-100 uppercase tracking-widest">Activa</div>
-                                    </div>
-                                    <div className="bg-indigo-600 p-6 rounded-2xl text-center shadow-lg shadow-indigo-500/20 border border-indigo-400/30 animate-pulse">
-                                        <div className="text-xs font-black text-white mb-1 leading-tight">NUEVO MÓDULO</div>
-                                        <div className="text-[10px] font-bold text-indigo-100 uppercase tracking-tight">Código Fuente</div>
                                     </div>
                                 </div>
 
@@ -393,7 +383,7 @@ const AmsView: React.FC = () => {
                                     <img src="/caleblogo.png" alt="Caleb Logo" className="w-full h-full object-contain" />
                                 </div>
                                 <div>
-                                    <div className="font-bold text-sm leading-none">AMS Asistente de IA</div>
+                                    <div className="font-bold text-sm leading-none">Asistente de IA</div>
                                     <div className="text-[10px] text-blue-200 mt-1 flex items-center gap-1">
                                         <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
                                         {activeFile ? `Contexto: ${activeFile.filename}` : 'Contexto Global'}
@@ -408,7 +398,7 @@ const AmsView: React.FC = () => {
                         <div className="h-[350px] overflow-y-auto p-4 flex flex-col gap-4 bg-[#f4f5f7]">
                             {chatHistory.length === 0 ? (
                                 <div className="bg-white p-3 rounded-2xl rounded-tl-none border border-[#dfe1e6] text-xs self-start max-w-[85%] shadow-sm leading-relaxed">
-                                    Hola, soy el asistente de conocimiento AMS. {activeFile ? `Puedo explicarte cualquier detalle sobre el programa **${activeFile.filename}** que estamos visualizando.` : 'Puedo responder preguntas sobre todos los módulos documentales del sistema.'} ¿Cómo puedo ayudarte?
+                                    Hola, soy el asistente de conocimiento. {activeFile ? `Puedo explicarte cualquier detalle sobre el programa **${activeFile.filename}** que estamos visualizando.` : 'Puedo responder preguntas sobre todos los módulos documentales del sistema.'} ¿Cómo puedo ayudarte?
                                 </div>
                             ) : (
                                 chatHistory.map((msg, i) => (

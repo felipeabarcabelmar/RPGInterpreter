@@ -5,11 +5,16 @@ import LoginView from './views/LoginView';
 import DashboardView from './views/DashboardView';
 import KnowledgeChatView from './views/KnowledgeChatView';
 import CategoryManagementView from './views/CategoryManagementView';
+import TicketManagementView from './views/TicketManagementView';
 import SystemSelectorView from './views/SystemSelectorView';
 import AmsView from './views/AmsView';
+import BackofficeTicketView from './views/BackofficeTicketView';
+import AmsAnalyticsView from './views/AmsAnalyticsView';
 
 type View = 'dashboard' | 'chat' | 'categories';
-type System = 'rpg' | 'ams' | null;
+type System = 'rpg' | 'ams' | 'tickets' | 'backoffice' | 'analytics' | null;
+
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
@@ -51,10 +56,13 @@ function App() {
     return <SystemSelectorView onSelect={(sys) => setCurrentSystem(sys)} />;
   }
 
-  if (currentSystem === 'ams') {
+  if (currentSystem === 'ams' || currentSystem === 'tickets' || currentSystem === 'backoffice' || currentSystem === 'analytics') {
     return (
       <div className="relative h-screen w-full">
-        <AmsView />
+        {currentSystem === 'ams' ? <AmsView /> : 
+         currentSystem === 'tickets' ? <TicketManagementView /> : 
+         currentSystem === 'backoffice' ? <BackofficeTicketView /> :
+         <AmsAnalyticsView />}
         <button
           onClick={() => setCurrentSystem(null)}
           className="fixed bottom-6 left-6 z-50 bg-white border border-[#dfe1e6] p-3 rounded-full shadow-xl text-[#42526e] hover:text-[#0052cc] hover:scale-110 transition-all flex items-center gap-2 pr-5"
@@ -65,6 +73,7 @@ function App() {
       </div>
     );
   }
+
 
   return (
     <div className="flex h-screen w-full bg-[#0d1117] overflow-hidden">
@@ -101,6 +110,7 @@ function App() {
           </button>
         </nav>
 
+
         <div className="p-4 border-t border-gray-800/50 space-y-2">
           <button
             onClick={() => setCurrentSystem(null)}
@@ -125,6 +135,8 @@ function App() {
         {currentView === 'chat' && <KnowledgeChatView />}
         {currentView === 'categories' && <CategoryManagementView />}
       </main>
+
+
     </div>
   );
 }
