@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { MessageSquare, Send, Bot, User, Filter, ChevronDown, Eraser } from 'lucide-react';
+import { Send, Bot, User, Filter, Eraser } from 'lucide-react';
 
 const KnowledgeChatView: React.FC = () => {
     const [query, setQuery] = useState('');

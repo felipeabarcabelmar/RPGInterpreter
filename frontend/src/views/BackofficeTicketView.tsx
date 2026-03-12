@@ -3,12 +3,9 @@ import axios from 'axios';
 import { 
     ShieldCheck, 
     RefreshCw, 
-    Search, 
-    Filter, 
+    Filter,
     Edit3, 
     CheckCircle2, 
-    Clock, 
-    AlertTriangle, 
     Paperclip,
     ExternalLink,
     X,

@@ -3,9 +3,7 @@ import axios from 'axios';
 import { 
     Ticket as TicketIcon, 
     Send, 
-    Clock, 
     CheckCircle, 
-    AlertCircle, 
     RefreshCw, 
     Paperclip, 
     X, 
