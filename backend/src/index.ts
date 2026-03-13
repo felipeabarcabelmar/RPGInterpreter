@@ -30,8 +30,8 @@ export const prisma = new PrismaClient();
 // Register plugins
 fastify.register(cors, {
     origin: (origin, cb) => {
-        // En producción permitimos cualquier origen que sea parte de tu dominio
-        if (!origin || origin.includes('traefik.me') || origin.includes('localhost')) {
+        // Permitimos localhost y cualquier subdominio de traefik.me
+        if (!origin || /traefik\.me$/.test(new URL(origin).hostname) || origin.includes('localhost')) {
             cb(null, true);
             return;
         }
@@ -39,6 +39,7 @@ fastify.register(cors, {
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
 });
 fastify.register(cookie);
 fastify.register(formbody);
