@@ -1,10 +1,11 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Category {
@@ -15,27 +16,26 @@ model Category {
 }
 
 model RPGFile {
-  id              Int      @id @default(autoincrement())
-  filename        String
-  content         String
-  documentation   String?
-  businessLogic   String?
-  mermaidDiagram  String?
-  htmlDiagram     String?
-  uploadedAt      DateTime @default(now())
-  categoryId      Int?
-  category        Category? @relation(fields: [categoryId], references: [id])
+  id             Int       @id @default(autoincrement())
+  filename       String
+  content        String
+  documentation  String?
+  businessLogic  String?
+  mermaidDiagram String?
+  htmlDiagram    String?
+  uploadedAt     DateTime  @default(now())
+  categoryId     Int?
+  category       Category? @relation(fields: [categoryId], references: [id])
 }
 
 model Ticket {
   id            Int      @id @default(autoincrement())
   title         String
   description   String
-  status        String   @default("Abierto") // Abierto, En Proceso, Resuelto, Cerrado
-  criticality   String   @default("Media")   // Baja, Media, Alta, Crítica
+  status        String   @default("Abierto")
+  criticality   String   @default("Media")
   solution      String?
   attachmentUrl String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
-
