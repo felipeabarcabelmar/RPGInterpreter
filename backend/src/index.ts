@@ -29,10 +29,13 @@ export const prisma = new PrismaClient();
 
 // Register plugins
 fastify.register(cors, {
-    origin: true, // Refleja el origen de la petición (necesario para credentials en entornos dinámicos)
+    origin: (origin, cb) => {
+        // Permitimos absolutamente todo para depurar el bloqueo
+        cb(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Cookie'],
 });
 fastify.register(cookie);
 fastify.register(formbody);
@@ -52,10 +55,9 @@ fastify.register(fastifyStatic, {
 
 // Auth middleware (simplified)
 fastify.addHook('preHandler', async (request, reply) => {
-    const isPublicRoute = ['/api/auth/login', '/api/auth/logout'].includes(request.url);
+    const isPublicRoute = ['/api/auth/login', '/api/auth/logout', '/health'].includes(request.url);
     if (!isPublicRoute && !request.cookies.session) {
         // In a real decoupled app, we might return 401
-        // For now, we'll allow routes but you'd protect sensitive ones
     }
 });
 
@@ -70,7 +72,12 @@ fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 
 // Health check route
 fastify.get('/health', async () => {
-    return { status: 'ok', service: 'rpg-interpreter-backend', timestamp: new Date().toISOString() };
+    return { 
+        status: 'ok', 
+        version: '1.0.3-CORS-FIX', 
+        service: 'rpg-interpreter-backend', 
+        timestamp: new Date().toISOString() 
+    };
 });
 
 
