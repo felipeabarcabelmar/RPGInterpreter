@@ -1,13 +1,20 @@
 import axios from 'axios';
 
-// En producción, esto debería ser la URL de tu backend (ej: http://am400-backend...)
-// En desarrollo, usamos el proxy relative path
+// En desarrollo usamos el proxy. En producción detectamos la URL del backend automáticamente si no se provee.
 const isProduction = import.meta.env.PROD;
-const API_BASE_URL = import.meta.env.VITE_API_URL || (isProduction ? '' : '');
+let api_url = import.meta.env.VITE_API_URL || '';
+
+if (isProduction && !api_url && typeof window !== 'undefined') {
+    const currentUrl = window.location.href;
+    // Si estamos en un subdominio de frontend, intentamos cambiarlo a backend
+    if (currentUrl.includes('-frontend-')) {
+        api_url = currentUrl.split('/')[0] + '//' + window.location.host.replace('-frontend-', '-backend-');
+    }
+}
 
 const api = axios.create({
-    baseURL: API_BASE_URL,
-    withCredentials: true, // Importante para las cookies de sesión
+    baseURL: api_url,
+    withCredentials: true,
 });
 
 export default api;
