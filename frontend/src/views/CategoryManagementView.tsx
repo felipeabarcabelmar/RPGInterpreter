@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Layout, Plus, Trash2, Tag, AlertCircle } from 'lucide-react';
 
 const CategoryManagementView: React.FC = () => {
@@ -15,7 +15,7 @@ const CategoryManagementView: React.FC = () => {
 
     const fetchCategories = async () => {
         try {
-            const res = await axios.get('/api/categories');
+            const res = await api.get('/api/categories');
             setCategories(res.data);
         } catch (err) {
             setError('Error al cargar categorías');
@@ -28,7 +28,7 @@ const CategoryManagementView: React.FC = () => {
 
         setLoading(true);
         try {
-            await axios.post('/api/categories', { name: newName, description: newDesc });
+            await api.post('/api/categories', { name: newName, description: newDesc });
             setNewName('');
             setNewDesc('');
             fetchCategories();
@@ -43,7 +43,7 @@ const CategoryManagementView: React.FC = () => {
         if (!confirm('¿Seguro? Los archivos en esta categoría pasarán a ser "Sin Categoría".')) return;
 
         try {
-            await axios.delete(`/api/categories/${id}`);
+            await api.delete(`/api/categories/${id}`);
             setCategories(categories.filter(c => c.id !== id));
         } catch (err) {
             setError('Error al eliminar categoría');

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from './api';
 import { Layout, MessageSquare, LogOut, Tag, Home } from 'lucide-react';
 import LoginView from './views/LoginView';
 import DashboardView from './views/DashboardView';
@@ -27,7 +27,7 @@ function App() {
 
   const checkAuth = async () => {
     try {
-      const res = await axios.get('/api/auth/me');
+      const res = await api.get('/api/auth/me');
       setAuthenticated(res.data.authenticated);
     } catch (err) {
       setAuthenticated(false);

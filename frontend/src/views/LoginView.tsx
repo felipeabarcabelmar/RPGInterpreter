@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 interface LoginViewProps {
     onLoginSuccess: () => void;
@@ -17,7 +17,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
         setError('');
 
         try {
-            const response = await axios.post('/api/auth/login', { username, password });
+            const response = await api.post('/api/auth/login', { username, password });
             if (response.data.success) {
                 onLoginSuccess();
             }

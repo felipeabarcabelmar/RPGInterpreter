@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { 
     ShieldCheck, 
     RefreshCw, 
@@ -39,7 +39,7 @@ const BackofficeTicketView: React.FC = () => {
     const fetchTickets = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('/api/tickets');
+            const res = await api.get('/api/tickets');
             setTickets(res.data);
         } catch (error) {
             console.error('Error fetching tickets:', error);
@@ -67,7 +67,7 @@ const BackofficeTicketView: React.FC = () => {
 
         setSaving(true);
         try {
-            await axios.patch(`/api/tickets/${editingTicket.id}`, {
+            await api.patch(`/api/tickets/${editingTicket.id}`, {
                 title: newTitle,
                 description: newDescription,
                 status: newStatus,
@@ -85,7 +85,7 @@ const BackofficeTicketView: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            await axios.delete(`/api/tickets/${id}`);
+            await api.delete(`/api/tickets/${id}`);
             setShowDeleteConfirm(null);
             fetchTickets();
         } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Send, Bot, User, Filter, Eraser } from 'lucide-react';
 
 const KnowledgeChatView: React.FC = () => {
@@ -24,8 +24,8 @@ const KnowledgeChatView: React.FC = () => {
     const fetchFilters = async () => {
         try {
             const [catsRes, filesRes] = await Promise.all([
-                axios.get('/api/categories'),
-                axios.get('/api/files')
+                api.get('/api/categories'),
+                api.get('/api/files')
             ]);
             setCategories(catsRes.data);
             setFiles(filesRes.data);
@@ -44,7 +44,7 @@ const KnowledgeChatView: React.FC = () => {
         setLoading(true);
 
         try {
-            const res = await axios.post('/api/chat', {
+            const res = await api.post('/api/chat', {
                 query: userMessage,
                 filter_type: filterType,
                 filter_id: filterId

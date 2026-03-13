@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { 
     Ticket as TicketIcon, 
     Send, 
@@ -34,7 +34,7 @@ const TicketManagementView: React.FC = () => {
     const fetchTickets = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('/api/tickets');
+            const res = await api.get('/api/tickets');
             setTickets(res.data);
         } catch (error) {
             console.error('Error fetching tickets:', error);
@@ -59,7 +59,7 @@ const TicketManagementView: React.FC = () => {
         }
 
         try {
-            await axios.post('/api/tickets', formData, {
+            await api.post('/api/tickets', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             setTitle('');
