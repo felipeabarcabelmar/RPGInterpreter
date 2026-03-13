@@ -22,7 +22,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const fastify = Fastify({
-    logger: true
+    logger: true,
+    ignoreTrailingSlash: true
 });
 
 export const prisma = new PrismaClient();
@@ -77,7 +78,7 @@ fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 fastify.get('/health', async () => {
     return { 
         status: 'ok', 
-        version: '1.0.5-FINAL', 
+        version: '1.0.6-SLASH', 
         service: 'rpg-interpreter-backend', 
         timestamp: new Date().toISOString() 
     };
