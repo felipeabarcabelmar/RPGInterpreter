@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { Upload, FileText, Layout, Trash2, ChevronRight, Brain } from 'lucide-react';
 
 const DashboardView: React.FC = () => {
@@ -34,8 +34,8 @@ const DashboardView: React.FC = () => {
         setLoading(true);
         try {
             const [filesRes, catsRes] = await Promise.all([
-                axios.get('/api/files'),
-                axios.get('/api/categories')
+                api.get('/api/files'),
+                api.get('/api/categories')
             ]);
             setFiles(filesRes.data);
             setCategories(catsRes.data);
@@ -50,7 +50,7 @@ const DashboardView: React.FC = () => {
         if (!selectedFile || analyzing) return;
         setAnalyzing(true);
         try {
-            const res = await axios.post(`/api/files/${selectedFile.id}/analyze`);
+            const res = await api.post(`/api/files/${selectedFile.id}/analyze`);
             setSelectedFile(res.data);
             setFiles(files.map(f => f.id === selectedFile.id ? res.data : f));
         } catch (err) {
@@ -64,7 +64,7 @@ const DashboardView: React.FC = () => {
     const handleSaveEdit = async () => {
         if (!selectedFile) return;
         try {
-            const res = await axios.patch(`/api/files/${selectedFile.id}`, {
+            const res = await api.patch(`/api/files/${selectedFile.id}`, {
                 documentation: editedDocs,
                 businessLogic: editedLogic
             });
@@ -87,7 +87,7 @@ const DashboardView: React.FC = () => {
         if (categoryId) formData.append('categoryId', categoryId);
 
         try {
-            const res = await axios.post('/api/files/upload', formData);
+            const res = await api.post('/api/files/upload', formData);
             fetchData();
             setSelectedFile(res.data); // Select the newly uploaded file
         } catch (err) {
@@ -100,7 +100,7 @@ const DashboardView: React.FC = () => {
     const deleteFile = async (id: number) => {
         if (!confirm('¿Seguro que deseas eliminar este archivo?')) return;
         try {
-            await axios.delete(`/api/files/${id}`);
+            await api.delete(`/api/files/${id}`);
             setFiles(files.filter(f => f.id !== id));
             if (selectedFile?.id === id) setSelectedFile(null);
         } catch (err) {
@@ -110,7 +110,7 @@ const DashboardView: React.FC = () => {
 
     const generateDiagram = async (id: number) => {
         try {
-            const res = await axios.post(`/api/files/${id}/generate-diagram`);
+            const res = await api.post(`/api/files/${id}/generate-diagram`);
             const updatedFile = { ...selectedFile, htmlDiagram: res.data.html_diagram };
             setSelectedFile(updatedFile);
             setFiles(files.map(f => f.id === id ? updatedFile : f));

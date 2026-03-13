@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../api';
 import {
     Search,
     FileText,
@@ -65,8 +65,8 @@ const AmsView: React.FC = () => {
         try {
             setLoadingFiles(true);
             const [filesRes, catsRes] = await Promise.all([
-                axios.get('/api/files'),
-                axios.get('/api/categories')
+                api.get('/api/files'),
+                api.get('/api/categories')
             ]);
             setFiles(filesRes.data);
             setCategories(catsRes.data);
@@ -93,7 +93,7 @@ const AmsView: React.FC = () => {
 
         try {
             const activeFile = typeof activeFileId === 'number' ? files.find(f => f.id === activeFileId) : null;
-            const res = await axios.post('/api/chat', {
+            const res = await api.post('/api/chat', {
                 query: userMsg,
                 filter_type: activeFile ? 'file' : 'all',
                 filter_id: activeFile ? activeFile.id : undefined
