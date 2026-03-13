@@ -5,10 +5,13 @@ const isProduction = import.meta.env.PROD;
 let api_url = import.meta.env.VITE_API_URL || '';
 
 if (isProduction && !api_url && typeof window !== 'undefined') {
-    const currentUrl = window.location.href;
+    console.log('[API Debug] Host actual:', window.location.host);
     // Si estamos en un subdominio de frontend, intentamos cambiarlo a backend
-    if (currentUrl.includes('-frontend-')) {
-        api_url = currentUrl.split('/')[0] + '//' + window.location.host.replace('-frontend-', '-backend-');
+    if (window.location.host.includes('-frontend-')) {
+        api_url = window.location.protocol + '//' + window.location.host.replace('-frontend-', '-backend-');
+        console.log('[API Debug] URL de Backend autodetectada:', api_url);
+    } else {
+        console.warn('[API Debug] No se detectó el patrón "-frontend-". Usando el host actual para la API.');
     }
 }
 

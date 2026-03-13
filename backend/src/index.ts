@@ -77,7 +77,7 @@ fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 fastify.get('/health', async () => {
     return { 
         status: 'ok', 
-        version: '1.0.4-CORS-CHECK', 
+        version: '1.0.5-FINAL', 
         service: 'rpg-interpreter-backend', 
         timestamp: new Date().toISOString() 
     };
