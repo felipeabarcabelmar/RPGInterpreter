@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from './api';
+import logo from './assets/caleblogo.png';
 import { Layout, MessageSquare, LogOut, Tag, Home } from 'lucide-react';
 import LoginView from './views/LoginView';
 import DashboardView from './views/DashboardView';
@@ -80,7 +81,7 @@ function App() {
       {/* Sidebar */}
       <aside className="w-64 bg-[#161b22] border-r border-gray-800 flex flex-col">
         <div className="p-6 flex items-center gap-3">
-          <img src="/caleblogo.png" alt="Caleb Group" className="w-10 h-10 object-contain" />
+          <img src={logo} alt="Caleb Group" className="w-10 h-10 object-contain" />
           <span className="font-bold text-white tracking-widest text-sm uppercase">Caleb Group</span>
         </div>
 

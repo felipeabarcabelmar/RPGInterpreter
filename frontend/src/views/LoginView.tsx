@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import api from '../api';
+import introVideo from '../assets/Intro.mp4';
+import logo from '../assets/caleblogo.png';
 
 interface LoginViewProps {
     onLoginSuccess: () => void;
@@ -38,7 +40,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
                 id="video-background"
                 className="fixed right-0 bottom-0 min-w-full min-h-full w-auto h-auto object-cover z-0 blur-[10px] brightness-[0.6]"
             >
-                <source src="/static/Intro.mp4" type="video/mp4" />
+                <source src={introVideo} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 
@@ -46,7 +48,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
             <div className="relative z-10 w-full max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl animate-in fade-in slide-in-from-bottom-5 duration-700">
                 <div className="text-center mb-8">
                     <img
-                        src="/static/caleblogo.png"
+                        src={logo}
                         alt="Caleb Group Logo"
                         className="w-32 mx-auto mb-6 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
                     />

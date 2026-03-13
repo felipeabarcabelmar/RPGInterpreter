@@ -1,5 +1,6 @@
 import React from 'react';
 import { Database, Shield, ArrowRight, Tag, Activity } from 'lucide-react';
+import logo from '../assets/caleblogo.png';
 
 interface SystemSelectorViewProps {
     onSelect: (system: 'rpg' | 'ams' | 'tickets' | 'backoffice' | 'analytics') => void;
@@ -14,7 +15,7 @@ const SystemSelectorView: React.FC<SystemSelectorViewProps> = ({ onSelect }) => 
 
             <div className="max-w-6xl w-full relative z-10 text-center">
                 <div className="flex items-center justify-center gap-4 mb-12">
-                    <img src="/caleblogo.png" alt="Caleb Group Logo" className="w-16 h-16 object-contain drop-shadow-2xl" />
+                    <img src={logo} alt="Caleb Group Logo" className="w-16 h-16 object-contain drop-shadow-2xl" />
                     <h1 className="text-3xl font-bold text-white tracking-widest uppercase italic">Caleb Group</h1>
                 </div>
 
