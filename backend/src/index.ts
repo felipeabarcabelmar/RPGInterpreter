@@ -29,17 +29,10 @@ export const prisma = new PrismaClient();
 
 // Register plugins
 fastify.register(cors, {
-    origin: (origin, cb) => {
-        // Permitimos localhost y cualquier subdominio de traefik.me
-        if (!origin || /traefik\.me$/.test(new URL(origin).hostname) || origin.includes('localhost')) {
-            cb(null, true);
-            return;
-        }
-        cb(new Error('Not allowed by CORS'), false);
-    },
+    origin: true, // Refleja el origen de la petición (necesario para credentials en entornos dinámicos)
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
 });
 fastify.register(cookie);
 fastify.register(formbody);
