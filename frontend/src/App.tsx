@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import api from './api';
+import { useState } from 'react';
 import logo from './assets/caleblogo.png';
 import { Layout, MessageSquare, LogOut, Tag, Home } from 'lucide-react';
 import LoginView from './views/LoginView';
@@ -18,27 +17,13 @@ type System = 'rpg' | 'ams' | 'tickets' | 'backoffice' | 'analytics' | null;
 
 
 function App() {
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const [authenticated, setAuthenticated] = useState<boolean>(true);
   const [currentSystem, setCurrentSystem] = useState<System>(null);
   const [currentView, setCurrentView] = useState<View>('dashboard');
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
-    try {
-      const res = await api.get('/api/auth/me');
-      setAuthenticated(res.data.authenticated);
-    } catch (err) {
-      setAuthenticated(false);
-    }
-  };
-
   const logout = () => {
-    document.cookie = "session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    setAuthenticated(false);
     setCurrentSystem(null);
+    // Para el bypass, no cambiamos el estado de autenticación
   };
 
   if (authenticated === null) {
