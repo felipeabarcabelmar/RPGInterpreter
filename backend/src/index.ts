@@ -28,9 +28,19 @@ const fastify = Fastify({
 
 export const prisma = new PrismaClient();
 
+const allowedOrigins = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : ['http://localhost:3000'];
+
 // Register plugins
 fastify.register(cors, {
-    origin: true, // Refleja el origen de la petición de forma automática
+    origin: (origin, cb) => {
+        // En desarrollo local o herramientas sin origen (como Postman), permitimos
+        if (!origin || allowedOrigins.includes(origin)) {
+            cb(null, true);
+            return;
+        }
+        // Rechazar orígenes no configurados
+        cb(new Error("No permitido por CORS"), false);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Cookie'],
@@ -78,7 +88,7 @@ fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 fastify.get('/health', async () => {
     return { 
         status: 'ok', 
-        version: '1.0.6-SLASH', 
+        version: '1.0.7-ENV-CORS', 
         service: 'rpg-interpreter-backend', 
         timestamp: new Date().toISOString() 
     };
