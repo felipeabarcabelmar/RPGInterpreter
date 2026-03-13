@@ -28,7 +28,18 @@ const fastify = Fastify({
 export const prisma = new PrismaClient();
 
 // Register plugins
-fastify.register(cors);
+fastify.register(cors, {
+    origin: (origin, cb) => {
+        // En producción permitimos cualquier origen que sea parte de tu dominio
+        if (!origin || origin.includes('traefik.me') || origin.includes('localhost')) {
+            cb(null, true);
+            return;
+        }
+        cb(new Error('Not allowed by CORS'), false);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+});
 fastify.register(cookie);
 fastify.register(formbody);
 fastify.register(multipart, {
