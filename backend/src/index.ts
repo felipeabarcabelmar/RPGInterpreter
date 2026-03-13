@@ -41,13 +41,6 @@ fastify.register(multipart, {
 fastify.register(fastifyStatic, {
     root: path.join(__dirname, '../../uploads'),
     prefix: '/uploads/',
-    decorateReply: false // Need to disable decoration for the second static registration
-});
-
-// Serve assets as static
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, '../../static'),
-    prefix: '/static/',
     decorateReply: false
 });
 
