@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Registro - CALEB SYSTEM</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        .edit-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 2rem;
+            background: var(--panel-bg);
+            border: var(--border-style);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--text-main);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: var(--accent-glow);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .save-btn {
+            background: var(--neon-blue);
+            color: var(--bg-dark);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .save-btn:hover {
+            box-shadow: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text-dim);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cancel-btn:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav-header">
+        <div class="logo-small" style="display: flex; align-items: center; gap: 10px;">
+            <img src="/static/caleblogo.png" alt="Logo" style="width: 30px; height: 30px;">
+            <span style="font-family: 'Orbitron', sans-serif; color: var(--neon-blue); font-size: 1.1rem;">CALEB
+                SYSTEM</span>
+        </div>
+        <nav class="nav-links">
+            <a href="/" class="nav-link">Intérprete</a>
+            <a href="/knowledge" class="nav-link">Base de Conocimientos</a>
+            <a href="/manage-categories" class="nav-link">Categorías</a>
+        </nav>
+    </header>
+
+    <div class="app-container" style="justify-content: center; align-items: flex-start; overflow-y: auto;">
+        <div class="edit-container">
+            <h2 style="font-family: 'Orbitron', sans-serif; color: var(--neon-blue); margin-bottom: 2rem;">Editar
+                Registro</h2>
+            <form id="edit-form">
+                <div class="form-group">
+                    <label for="edit-category">Categoría / Módulo</label>
+                    <select id="edit-category"
+                        style="width: 100%; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid rgba(0, 212, 255, 0.2); color: white; border-radius: 4px;">
+                        <option value="">Sin Categoría</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="doc-text">Documentación Técnica</label>
+                    <textarea id="doc-text" name="documentation"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="logic-text">Lógica de Negocio</label>
+                    <textarea id="logic-text" name="business_logic"></textarea>
+                </div>
+                <div class="btn-group">
+                    <button type="button" id="delete-btn" class="delete-btn">Eliminar Registro</button>
+                    <button type="button" class="cancel-btn" onclick="window.location.href='/'">Cancelar</button>
+                    <button type="submit" class="save-btn">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Delete Modal -->
+        <div id="delete-modal" class="modal">
+            <div class="confirm-modal-content">
+                <h3 style="font-family: 'Orbitron', sans-serif; color: #ff4d4d; margin-bottom: 1.5rem;">¿Confirmar
+                    Eliminación?</h3>
+                <p style="color: var(--text-dim); margin-bottom: 2rem; line-height: 1.5;">Esta acción es permanente y no
+                    se puede deshacer. ¿Seguro que deseas eliminar este registro?</p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button type="button" id="cancel-delete" class="cancel-btn">Cancelar</button>
+                    <button type="button" id="confirm-delete" class="save-btn" style="background: #ff4d4d;">Eliminar
+                        Permanentemente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/edit.js"></script>
+</body>
+
+</html>
