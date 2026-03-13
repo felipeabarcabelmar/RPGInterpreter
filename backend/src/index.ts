@@ -74,6 +74,11 @@ fastify.register(categoryRoutes, { prefix: '/api/categories' });
 fastify.register(chatRoutes, { prefix: '/api/chat' });
 fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 
+// Health check route
+fastify.get('/health', async () => {
+    return { status: 'ok', service: 'rpg-interpreter-backend', timestamp: new Date().toISOString() };
+});
+
 
 export default async (req: any, res: any) => {
     await fastify.ready();
