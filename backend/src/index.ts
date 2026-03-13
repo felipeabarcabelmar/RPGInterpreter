@@ -29,13 +29,11 @@ export const prisma = new PrismaClient();
 
 // Register plugins
 fastify.register(cors, {
-    origin: (origin, cb) => {
-        // Permitimos absolutamente todo para depurar el bloqueo
-        cb(null, true);
-    },
+    origin: true, // Refleja el origen de la petición de forma automática
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With', 'Cookie'],
+    exposedHeaders: ['set-cookie']
 });
 fastify.register(cookie);
 fastify.register(formbody);
@@ -55,9 +53,14 @@ fastify.register(fastifyStatic, {
 
 // Auth middleware (simplified)
 fastify.addHook('preHandler', async (request, reply) => {
+    // IMPORTANTE: No ejecutar lógica en peticiones OPTIONS (CORS Preflight)
+    if (request.method === 'OPTIONS') {
+        return;
+    }
+    
     const isPublicRoute = ['/api/auth/login', '/api/auth/logout', '/health'].includes(request.url);
     if (!isPublicRoute && !request.cookies.session) {
-        // In a real decoupled app, we might return 401
+        // En una app real, aquí iría la validación de sesión
     }
 });
 
@@ -74,7 +77,7 @@ fastify.register(ticketRoutes, { prefix: '/api/tickets' });
 fastify.get('/health', async () => {
     return { 
         status: 'ok', 
-        version: '1.0.3-CORS-FIX', 
+        version: '1.0.4-CORS-CHECK', 
         service: 'rpg-interpreter-backend', 
         timestamp: new Date().toISOString() 
     };
@@ -91,7 +94,7 @@ if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
         try {
             const port = parseInt(process.env.PORT || '3001');
             await fastify.listen({ port, host: '0.0.0.0' });
-            console.log(`Server listening on http://localhost:${port}`);
+            console.log(`Server listening on http://0.0.0.0:${port}`);
         } catch (err) {
             fastify.log.error(err);
             process.exit(1);
