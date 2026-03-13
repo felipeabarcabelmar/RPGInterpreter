@@ -19,12 +19,26 @@ const LoginView: React.FC<LoginViewProps> = ({ onLoginSuccess }) => {
         setError('');
 
         try {
+            console.log('Intentando login en:', api.defaults.baseURL + '/api/auth/login');
             const response = await api.post('/api/auth/login', { username, password });
+            console.log('Respuesta de login:', response.data);
             if (response.data.success) {
                 onLoginSuccess();
             }
         } catch (err: any) {
-            setError(err.response?.data?.error || 'Error al iniciar sesión');
+            console.error('Error detallado de login:', err);
+            const status = err.response?.status;
+            const message = err.response?.data?.error || err.message;
+            
+            if (status === 405) {
+                setError(`Error 405: El servidor no permite esta operación. Verifica si la URL del backend ${api.defaults.baseURL} es correcta.`);
+            } else if (status === 401) {
+                setError('Usuario o contraseña incorrectos.');
+            } else if (!err.response) {
+                setError(`Error de red: No se pudo contactar con el backend en ${api.defaults.baseURL}. Verifica tu conexión.`);
+            } else {
+                setError(`Error (${status || 'desconocido'}): ${message}`);
+            }
         } finally {
             setLoading(false);
         }
