@@ -26,97 +26,114 @@ const SystemSelectorView: React.FC<SystemSelectorViewProps> = ({ onSelect }) => 
                     Seleccione el sistema al que desea acceder para continuar con sus operaciones.
                 </p>
 
-                <div className="grid md:grid-cols-3 gap-8">
-                    {/* RPG Card */}
-                    <button
-                        onClick={() => onSelect('rpg')}
-                        className="group relative bg-[#161b22] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-blue-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-blue-900/10 flex flex-col"
-                    >
-                        <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <Database size={28} className="text-blue-400" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-3">RPG Interpreter</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                            Herramienta de análisis y documentación de código RPG para AS/400 v7.4. Generación de diagramas y lógica de negocio mediante IA.
-                        </p>
-                        <div className="flex items-center gap-2 text-blue-400 font-semibold group-hover:gap-3 transition-all">
-                            <span>Acceder</span>
-                            <ArrowRight size={18} />
-                        </div>
-                    </button>
+                <div className="w-full space-y-12 text-left">
+                    {/* Herramienta Consultor Group */}
+                    <div className="bg-[#161b22]/40 border border-gray-800/50 rounded-[2rem] p-8 backdrop-blur-sm shadow-xl">
+                        <h3 className="text-2xl font-bold text-white mb-8 tracking-wider flex items-center gap-3">
+                            <Database size={26} className="text-blue-500" />
+                            HERRAMIENTA CONSULTOR
+                        </h3>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* RPG Card */}
+                            <button
+                                onClick={() => onSelect('rpg')}
+                                className="group relative bg-[#0d1117] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-blue-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-blue-900/10 flex flex-col h-full"
+                            >
+                                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Database size={28} className="text-blue-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">RPG Interpreter</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                                    Herramienta de análisis y documentación de código RPG para AS/400 v7.4. Generación de diagramas y lógica de negocio mediante IA.
+                                </p>
+                                <div className="flex items-center gap-2 text-blue-400 font-semibold group-hover:gap-3 transition-all mt-auto">
+                                    <span>Acceder</span>
+                                    <ArrowRight size={18} />
+                                </div>
+                            </button>
 
-                    {/* AMS Card */}
-                    <button
-                        onClick={() => onSelect('ams')}
-                        className="group relative bg-[#161b22] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-indigo-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-indigo-900/10 flex flex-col"
-                    >
+                            {/* Backoffice Card */}
+                            <button
+                                onClick={() => onSelect('backoffice')}
+                                className="group relative bg-[#0d1117] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-indigo-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-indigo-900/10 flex flex-col h-full"
+                            >
+                                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Shield size={28} className="text-indigo-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Backoffice de Tráfico</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                                    Panel administrativo para la resolución de tickets, asignación de criticidad y comunicación de soluciones técnicas.
+                                </p>
+                                <div className="flex items-center gap-2 text-indigo-400 font-bold group-hover:gap-3 transition-all mt-auto">
+                                    <span>Ingresar</span>
+                                    <ArrowRight size={18} />
+                                </div>
+                            </button>
+                        </div>
+                    </div>
 
-                        <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <Shield size={28} className="text-indigo-400" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-3">Base de Conocimientos</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                            Plataforma de gestión y documentación de aplicaciones. Interfaz profesional tipo Jira para usuarios finales y soporte técnico.
-                        </p>
-                        <div className="flex items-center gap-2 text-indigo-400 font-semibold group-hover:gap-3 transition-all">
-                            <span>Acceder</span>
-                            <ArrowRight size={18} />
-                        </div>
-                    </button>
+                    {/* Acompañamiento Técnico Group */}
+                    <div className="bg-[#161b22]/40 border border-gray-800/50 rounded-[2rem] p-8 backdrop-blur-sm shadow-xl">
+                        <h3 className="text-2xl font-bold text-white mb-8 tracking-wider flex items-center gap-3">
+                            <Shield size={26} className="text-green-500" />
+                            ACOMPAÑAMIENTO TÉCNICO
+                        </h3>
+                        <div className="grid md:grid-cols-3 gap-8">
+                            {/* AMS Card */}
+                            <button
+                                onClick={() => onSelect('ams')}
+                                className="group relative bg-[#0d1117] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-indigo-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-indigo-900/10 flex flex-col h-full"
+                            >
+                                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Shield size={28} className="text-indigo-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Base de Conocimientos</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                                    Plataforma de gestión y documentación de aplicaciones. Interfaz profesional tipo Jira para usuarios finales y soporte técnico.
+                                </p>
+                                <div className="flex items-center gap-2 text-indigo-400 font-semibold group-hover:gap-3 transition-all mt-auto">
+                                    <span>Acceder</span>
+                                    <ArrowRight size={18} />
+                                </div>
+                            </button>
 
-                    {/* Tickets Card */}
-                    <button
-                        onClick={() => onSelect('tickets')}
-                        className="group relative bg-[#161b22] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-green-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-green-900/10 flex flex-col"
-                    >
-                        <div className="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <Tag size={28} className="text-green-400" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-3">Gestión de Tickets</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                            Sistema de soporte y seguimiento de consultas. Envía tus requerimientos y revisa el estado de resolución en tiempo real.
-                        </p>
-                        <div className="flex items-center gap-2 text-green-400 font-semibold group-hover:gap-3 transition-all">
-                            <span>Acceder</span>
-                            <ArrowRight size={18} />
-                        </div>
-                    </button>
+                            {/* Tickets Card */}
+                            <button
+                                onClick={() => onSelect('tickets')}
+                                className="group relative bg-[#0d1117] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-green-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-green-900/10 flex flex-col h-full"
+                            >
+                                <div className="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Tag size={28} className="text-green-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Gestión de Tickets</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                                    Sistema de soporte y seguimiento de consultas. Envía tus requerimientos y revisa el estado de resolución en tiempo real.
+                                </p>
+                                <div className="flex items-center gap-2 text-green-400 font-semibold group-hover:gap-3 transition-all mt-auto">
+                                    <span>Acceder</span>
+                                    <ArrowRight size={18} />
+                                </div>
+                            </button>
 
-                    {/* Backoffice Card */}
-                    <button
-                        onClick={() => onSelect('backoffice')}
-                        className="group relative bg-[#161b22] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-indigo-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-indigo-900/10 flex flex-col"
-                    >
-                        <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <Shield size={28} className="text-indigo-400" />
+                            {/* Analytics Card */}
+                            <button
+                                onClick={() => onSelect('analytics')}
+                                className="group relative bg-[#0d1117] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-amber-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-amber-900/10 flex flex-col h-full"
+                            >
+                                <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <Activity size={28} className="text-amber-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-3">Analíticas AMS</h3>
+                                <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
+                                    Dashboard ejecutivo con KPIs de rendimiento, cumplimiento de SLA, volumen de tickets y consumo de recursos Caleb Group.
+                                </p>
+                                <div className="flex items-center gap-2 text-amber-400 font-bold group-hover:gap-3 transition-all mt-auto">
+                                    <span>Ver Reportes</span>
+                                    <ArrowRight size={18} />
+                                </div>
+                            </button>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-3">Backoffice de Tráfico</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                            Panel administrativo para la resolución de tickets, asignación de criticidad y comunicación de soluciones técnicas.
-                        </p>
-                        <div className="flex items-center gap-2 text-indigo-400 font-bold group-hover:gap-3 transition-all">
-                            <span>Ingresar</span>
-                            <ArrowRight size={18} />
-                        </div>
-                    </button>
-
-                    {/* Analytics Card */}
-                    <button
-                        onClick={() => onSelect('analytics')}
-                        className="group relative bg-[#161b22] border border-gray-800 p-8 rounded-3xl text-left transition-all hover:border-amber-500/50 hover:bg-[#1c2128] hover:shadow-2xl hover:shadow-amber-900/10 flex flex-col"
-                    >
-                        <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <Activity size={28} className="text-amber-400" />
-                        </div>
-                        <h3 className="text-2xl font-bold text-white mb-3">Analíticas AMS</h3>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-1">
-                            Dashboard ejecutivo con KPIs de rendimiento, cumplimiento de SLA, volumen de tickets y consumo de recursos Caleb Group.
-                        </p>
-                        <div className="flex items-center gap-2 text-amber-400 font-bold group-hover:gap-3 transition-all">
-                            <span>Ver Reportes</span>
-                            <ArrowRight size={18} />
-                        </div>
-                    </button>
+                    </div>
                 </div>
 
 
